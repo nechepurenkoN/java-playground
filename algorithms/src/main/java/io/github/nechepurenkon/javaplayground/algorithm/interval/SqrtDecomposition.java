@@ -1,4 +1,4 @@
-package io.github.nechepurenkon.javaplayground.algorithms.interval;
+package io.github.nechepurenkon.javaplayground.algorithm.interval;
 
 public class SqrtDecomposition {
     private final int[] b;
