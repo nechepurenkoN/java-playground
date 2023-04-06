@@ -19,7 +19,7 @@ public class Factorial {
     }
 
     public BigInteger count() {
-        return Stream.iterate(1L, i -> i < n, i -> i + chunkSize)
+        return Stream.iterate(0L, i -> i < n, i -> i + chunkSize)
               .map(this::createTask)
               .parallel()
               .map(FactorialIntervalTask::get)
@@ -28,8 +28,8 @@ public class Factorial {
 
     protected FactorialIntervalTask createTask(long index) {
         return new FactorialIntervalTask(
-            BigInteger.valueOf(index),
-            BigInteger.valueOf(Math.min(index + chunkSize - 1, n))
+            BigInteger.valueOf(index).add(BigInteger.ONE),
+            BigInteger.valueOf(Math.min(index + chunkSize, n))
         );
     }
 
@@ -54,7 +54,7 @@ public class Factorial {
         public BigInteger get() {
 
             if (left.equals(right)) {
-                return left.multiply(BigInteger.ONE);
+                return left;
             }
 
             BigInteger accumulator = BigInteger.ONE;
